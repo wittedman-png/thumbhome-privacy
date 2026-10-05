@@ -64,14 +64,14 @@
       <li>Usage Access는 사용자가 직접 허용하는 선택 권한입니다.</li>
       <li>이 권한은 Android 설정에서 언제든지 철회할 수 있습니다.</li>
       <li>앱 사용 패턴과 Usage Access로 확인한 정보는 사용자의 기기 내부에서 처리되며 개발자 자체 서버로 전송하지 않습니다.</li>
-      <li>광고 SDK, Analytics SDK 및 Firebase Analytics를 사용하지 않습니다.</li>
+      <li>광고 SDK, Analytics SDK, Firebase Analytics 및 Crashlytics를 사용하지 않습니다.</li>
       <li>자체 회원가입·로그인 서버와 사용자 데이터 업로드 서버를 운영하지 않습니다.</li>
     </ul>
 
     <h2>4. Google Play 결제</h2>
-    <p>현재 무료 운영 중에는 모든 스마트 기능을 무료로 제공하며 구매 화면을 표시하지 않습니다. 유료 운영 활성화 후에는 사용자별로 앱에서 전환을 정상 확인하고 사용을 시작한 시점부터 최소 14일의 무료체험을 제공합니다. 무료 운영 중 사용한 기간이나 과거 체험 기간은 새 체험에서 차감하지 않으며, 이미 구매한 이용권은 유지됩니다.</p>
-    <p>한손 홈은 PRO 영구 이용권의 상품 정보 조회, 구매 진행, 구매 상태 확인 및 복원, 구매 승인을 위해 Google Play Billing을 사용합니다. 이 과정에서 앱은 인터넷을 통해 Google Play와 통신합니다.</p>
-    <p>결제 과정에서 다음 정보가 처리될 수 있습니다.</p>
+    <p>현재 무료 선출시 상태로 실제 결제 판매는 비활성화되어 있습니다. 모든 스마트 기능을 무료로 제공하며 결제 UI, 구매 버튼 및 Paywall(유료 이용 안내 화면)을 노출하지 않고 구매 절차를 실행하지 않습니다. 유료 운영 활성화 후에는 사용자별로 앱에서 전환을 정상 확인하고 사용을 시작한 시점부터 최소 14일의 무료체험을 제공합니다. 무료 운영 중 사용한 기간이나 과거 체험 기간은 새 체험에서 차감하지 않으며, 이미 구매한 이용권은 유지됩니다.</p>
+    <p>Google Play Billing 코드는 향후 유료 기능 준비 목적으로 앱에 포함되어 있습니다. 향후 유료 운영이 활성화되면 PRO 영구 이용권의 상품 정보 조회, 구매 진행, 구매 상태 확인 및 복원, 구매 승인에 사용되며, 이 과정에서 앱은 인터넷을 통해 Google Play와 통신합니다.</p>
+    <p>향후 결제 기능을 이용하는 과정에서 다음 정보가 처리될 수 있습니다.</p>
     <ul>
       <li>상품 ID</li>
       <li>구매 상태</li>
@@ -87,11 +87,11 @@
     </ul>
 
     <h2>5. Firebase 원격 설정</h2>
-    <p>한손 홈은 무료·유료 운영 여부와 무료체험 정책을 확인하기 위해 Firebase Remote Config를 사용하며 인터넷을 통해 Google의 Firebase 서비스와 통신합니다. 원격 설정은 구매 여부를 결정하지 않으며 구매 소유권은 Google Play에서 확인합니다.</p>
+    <p>한손 홈은 앱 설정값과 기능 정책을 원격으로 조회하고 향후 기능 활성화 여부를 관리하기 위해 Firebase Remote Config를 사용하며, 이 과정에서 Firebase Installations도 사용합니다. 앱은 인터넷을 통해 Google/Firebase 서비스와 통신합니다. 현재 무료 운영 설정은 monetization_enabled=false, paywall_enabled=false입니다. 원격 설정은 구매 여부를 결정하지 않으며 구매 소유권은 Google Play에서 확인합니다.</p>
     <ul>
-      <li>설정 조회 과정에서 Firebase 설치 식별자(FID), Firebase 앱 ID, 앱 패키지명, 국가·언어 코드, 시간대, 플랫폼·운영체제 및 SDK 버전 등 앱 환경 정보가 Google에서 처리될 수 있습니다. FID는 앱 설치 단위의 식별자로 개인이나 물리적 기기의 고유 ID가 아닙니다.</li>
-      <li>앱 사용 패턴, 설치 앱 목록, 사용 통계 및 구매 토큰을 Firebase Remote Config에 전송하도록 구현하지 않았습니다.</li>
-      <li>광고 SDK와 Google Analytics·Firebase Analytics를 사용하지 않습니다.</li>
+      <li>Firebase Remote Config 및 Firebase Installations 이용 과정에서 Firebase Installation ID(FID, 앱 설치 식별자), Firebase 앱 ID, 앱 패키지명, SDK 및 앱 버전 정보, 국가·언어·시간대, OS·플랫폼 관련 정보가 Google/Firebase 서비스에서 처리될 수 있습니다. FID는 앱 설치 단위의 식별자입니다. 위 정보는 개발자 자체 서버로 전송하지 않습니다.</li>
+      <li>설치 앱 목록, UsageStats(앱 사용정보), 앱 사용 패턴, 사용 통계 및 구매 토큰은 Firebase로 전송하지 않습니다. 앱 사용 패턴과 사용 통계는 기기 내부에서 처리합니다.</li>
+      <li>광고 SDK, Google Analytics·Firebase Analytics 및 Crashlytics를 사용하지 않습니다. 개발자 자체 서버를 운영하지 않습니다.</li>
       <li>설정 또는 결제 상품 상태를 정상 확인하지 못하면 스마트 기능을 임시 무료로 제공하며, 원격 설정은 사용 중인 홈 화면을 잠그지 않도록 다음 화면 진입 시 반영합니다.</li>
     </ul>
     <p>Firebase의 정보 처리는 <a href="https://firebase.google.com/support/privacy">Firebase 개인정보 보호 안내</a> 및 <a href="https://policies.google.com/privacy">Google 개인정보처리방침</a>을 참고할 수 있습니다.</p>
